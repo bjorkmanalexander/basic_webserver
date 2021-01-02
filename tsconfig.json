@@ -16,6 +16,7 @@
       "strict": true,
       "target": "es6",
   },
+  "exclude": [],
   "include": [
       "src/**/*"
   ]

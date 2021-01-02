@@ -5,5 +5,5 @@ const {
 } = process.env;
 export const db = new Firestore({
     projectId: FIRESTORE_PROJECT_ID,
-    keyFilename: join(__dirname, "..", "..", "ServiceAccountKey.json")
+    keyFilename: join(__dirname, "..", "..", "..", "ServiceAccountKey.json")
 });

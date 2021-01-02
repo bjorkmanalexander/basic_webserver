@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
-import { exists as UserExists } from "../db/users.service";
+import { create as CreateUser, exists as UserExists } from "../db/users.service";
 
 const {
     GOOGLE_CLIENT_ID,
@@ -18,9 +18,12 @@ passport.use(new Strategy({
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: GOOGLE_CALLBACK_URL
 },
-(accessToken, refreshToken, profile, done) => {
+async (accessToken, refreshToken, profile, done) => {
     // lookup if user exists in db
-    UserExists(profile);
+    const user = await UserExists(profile);
+    if (!user) {
+        const create = await CreateUser(profile);
+    }
     return done(undefined, profile);
 }));
 
