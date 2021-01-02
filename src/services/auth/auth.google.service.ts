@@ -25,7 +25,7 @@ async (accessToken, refreshToken, profile, done) => {
         if (!user) {
             const create = await CreateUser(profile);
         } else {
-            const updated = await UpdateUser(user.id, { lastSeen: FieldValue.serverTimestamp() });
+            const update = await UpdateUser(user.id, { lastSeen: FieldValue.serverTimestamp() });
         }
         return done(undefined, profile);
     }
