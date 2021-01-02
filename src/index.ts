@@ -11,7 +11,7 @@ import { router as GoogleAuth } from "./services/auth/auth.google.service";
 
     const server = express();
     const session = {
-        secret: `${SERVER_SECRET}`,
+        secret: SERVER_SECRET,
         cookie: {
             httpOnly: true,
             maxAge: 360 * 10000
