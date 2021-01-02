@@ -20,5 +20,9 @@ export const exists = async (profile: passport.Profile) => {
                 data: snapshot.docs[0].data()
             }
         }
-    })
+    });
+}
+
+export const update = async (id: string, data: object) => {
+    return await usersRef.doc(id).update(data);
 }

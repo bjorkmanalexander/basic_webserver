@@ -1,7 +1,8 @@
+import { FieldValue } from "@google-cloud/firestore";
 import express, { Request, Response } from "express";
 import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
-import { create as CreateUser, exists as UserExists } from "../db/users.service";
+import { create as CreateUser, update as UpdateUser, exists as UserExists } from "../db/users.service";
 
 const {
     GOOGLE_CLIENT_ID,
@@ -19,12 +20,18 @@ passport.use(new Strategy({
     callbackURL: GOOGLE_CALLBACK_URL
 },
 async (accessToken, refreshToken, profile, done) => {
-    // lookup if user exists in db
-    const user = await UserExists(profile);
-    if (!user) {
-        const create = await CreateUser(profile);
+    try {
+        const user = await UserExists(profile);
+        if (!user) {
+            const create = await CreateUser(profile);
+        } else {
+            const updated = await UpdateUser(user.id, { lastSeen: FieldValue.serverTimestamp() });
+        }
+        return done(undefined, profile);
     }
-    return done(undefined, profile);
+    catch (error) {
+        return done(error, profile);
+    }
 }));
 
 router.get("/google", passport.authenticate('google', { scope: [ 'profile', 'email' ] } ));
