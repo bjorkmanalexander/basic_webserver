@@ -13,7 +13,6 @@ export const router = express.Router({
 });
 
 passport.use(new Strategy({
-    // clientID: `${GOOGLE_CLIENT_ID}`,
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: GOOGLE_CALLBACK_URL
