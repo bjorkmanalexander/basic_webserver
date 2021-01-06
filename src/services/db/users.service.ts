@@ -1,6 +1,7 @@
 import { FieldValue } from "@google-cloud/firestore";
 import passport from "passport";
 import { usersRef } from "./collections.service";
+import { remove as RemoveUser, update as UpdateUser } from "./common.service";
 
 export const create = async (profile: passport.Profile) => {
     const { provider, id } = profile;
@@ -13,7 +14,7 @@ export const create = async (profile: passport.Profile) => {
 }
 
 export const remove = async (id: string) => {
-    return await usersRef.doc(id).delete();
+    return await RemoveUser(usersRef, id);
 }
 
 export const exists = async (profile: passport.Profile) => {
@@ -29,5 +30,6 @@ export const exists = async (profile: passport.Profile) => {
 }
 
 export const update = async (id: string, data: object) => {
-    return await usersRef.doc(id).update(data);
+    // return await usersRef.doc(id).update(data);
+    return await UpdateUser(usersRef, id, data);
 }
