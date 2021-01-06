@@ -2,6 +2,7 @@
 ## Good to know
 * ServiceAccountKey.json is to be located in the project root folder
 * Build before run
+    * npm install
     * npm run build
     * npm run dev
 * Might want to include typings:
