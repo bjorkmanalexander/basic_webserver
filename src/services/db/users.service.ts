@@ -12,6 +12,10 @@ export const create = async (profile: passport.Profile) => {
     });
 }
 
+export const remove = async (id: string) => {
+    return await usersRef.doc(id).delete();
+}
+
 export const exists = async (profile: passport.Profile) => {
     const { provider, id } = profile;
     return await usersRef.where(provider, "==", id).get().then(snapshot => {
