@@ -7,6 +7,7 @@ export const create = async (profile: passport.Profile) => {
     return await usersRef.add({
         created: FieldValue.serverTimestamp(),
         lastSeen: FieldValue.serverTimestamp(),
+        roles: [ "reader" ],
         [provider]: id
     });
 }
