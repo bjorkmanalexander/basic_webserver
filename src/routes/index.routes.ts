@@ -6,7 +6,6 @@ export const router = express.Router({
 router.get("/", async (req: Request, res: Response) => {
     if(req.user) {
         const { user }: any = req;
-        console.log(user);
         res.send(`
             <div style="display: flex; flex-direction: column;">
                 <p>Hello ${user.displayName}</p>
@@ -24,7 +23,7 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.get("/success", async(req: Request, res: Response) => {
-    const { user } = req;
+    // const { user } = req;
     // res.json(user);
     res.redirect("/");
 });
