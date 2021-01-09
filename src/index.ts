@@ -2,6 +2,7 @@ import express from "express";
 import expressSession from "express-session";
 import passport from "passport";
 import { router as IndexRouter } from "./routes/index.routes";
+import { router as ProtectedRouter } from "./routes/protected.routes";
 import { router as GoogleAuth } from "./services/auth/auth.google.service";
 (async () => {
     const {
@@ -40,6 +41,7 @@ import { router as GoogleAuth } from "./services/auth/auth.google.service";
     });
 
     server.use("/auth", GoogleAuth);
+    server.use("/protected", ProtectedRouter);
     server.use("/", IndexRouter);
     server.listen(SERVER_PORT, () => {
         return

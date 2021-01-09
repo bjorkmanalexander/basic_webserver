@@ -5,7 +5,10 @@ export const router = express.Router({
 
 router.get("/", async (req: Request, res: Response) => {
     res.send(`
-        <a href="/auth/google">Auth with Google</a>
+        <div style="display: flex; flex-direction: column;">
+            <a href="/auth/google">Auth with Google</a>
+            <a href="/protected">Protected Route</a>
+        </div>
     `);
 });
 
