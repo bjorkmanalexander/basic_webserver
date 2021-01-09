@@ -6,5 +6,10 @@ export const router = express.Router({
 });
 
 router.get("/", requireAuth, async (req: Request, res: Response) => {
-    res.send(`This is a protected route`);
+    res.send(`
+        <div style="display: flex; flex-direction: column;">
+            <p>This is a protected route</p>
+            <a href="/">Back to home</a>
+        </div>
+    `);
 });
