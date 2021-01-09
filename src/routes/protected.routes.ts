@@ -1,4 +1,4 @@
-import express, { NextFunction ,Request, Response } from "express";
+import express, { Request, Response } from "express";
 import { requireAuth } from "../controllers/auth.controller";
 
 export const router = express.Router({
