@@ -30,6 +30,5 @@ export const exists = async (profile: passport.Profile) => {
 }
 
 export const update = async (id: string, data: object) => {
-    // return await usersRef.doc(id).update(data);
     return await UpdateUser(usersRef, id, data);
 }
