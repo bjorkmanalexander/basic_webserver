@@ -22,7 +22,7 @@ router.get("/", async (req: Request, res: Response) => {
     }
 });
 
-router.get("/success", async(req: Request, res: Response) => {
+router.get("/success", async (req: Request, res: Response) => {
     // const { user } = req;
     // res.json(user);
     res.redirect("/");

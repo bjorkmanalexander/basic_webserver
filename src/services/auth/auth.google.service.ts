@@ -4,10 +4,6 @@ import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
 import { create as CreateUser, update as UpdateUser, exists as UserExists } from "../db/users.service";
 
-interface Profile extends passport.Profile {
-    uid?: string
-}
-
 const {
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
@@ -23,15 +19,13 @@ passport.use(new Strategy({
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: GOOGLE_CALLBACK_URL
 },
-async (accessToken, refreshToken, profile: Profile, done) => {
+async (accessToken, refreshToken, profile, done) => {
     try {
         const user = await UserExists(profile);
         if (!user) {
             const create = await CreateUser(profile);
-            profile.uid = create.id;
         } else {
             const update = await UpdateUser(user.id, { lastSeen: FieldValue.serverTimestamp() });
-            profile.uid = user.id;
         }
         return done(undefined, profile);
     }
