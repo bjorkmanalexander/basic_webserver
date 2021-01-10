@@ -24,7 +24,6 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.get("/success", async(req: Request, res: Response) => {
     // const { user } = req;
-    console.log(req.user);
     // res.json(user);
     res.redirect("/");
 });
