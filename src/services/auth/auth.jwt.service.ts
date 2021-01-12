@@ -6,9 +6,7 @@ export const router = express.Router({
     strict: true
 });
 
-const {
-    JWT_SECRET
-} = process.env;
+const { JWT_SECRET } = process.env;
 
 passport.use(new Strategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
