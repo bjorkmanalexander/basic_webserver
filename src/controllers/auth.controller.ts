@@ -10,5 +10,6 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
 
 export const requireAdmin = async (req: Request, res: Response, next: NextFunction) => {
     const { user } = req;
+    console.log(user);
     next();
 }

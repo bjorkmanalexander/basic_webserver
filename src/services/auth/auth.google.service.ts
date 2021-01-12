@@ -27,7 +27,7 @@ async (accessToken, refreshToken, profile, done) => {
         if (!user) {
             const create = await CreateUser(profile);
         } else {
-            const update = await UpdateUser(user.uid, { lastSeen: FieldValue.serverTimestamp() });
+            const update = await UpdateUser(user.id, { lastSeen: FieldValue.serverTimestamp() });
         }
         return done(undefined, user);
     }
@@ -37,6 +37,8 @@ async (accessToken, refreshToken, profile, done) => {
 }));
 
 router.get("/google", passport.authenticate('google', { scope: [ 'profile', 'email' ] } ));
-router.get("/google/redirect", passport.authenticate('google', { failureRedirect: "/"} ), async (req: Request, res: Response) => {
-    res.redirect("/success");
+router.get("/google/redirect", passport.authenticate('google', { failureRedirect: "/" } ), async (req: Request, res: Response) => {
+    const token = await createToken(req.user);
+    // res.redirect("/success");
+    res.cookie("jwt", token, { httpOnly: true }).redirect("/success");
 });

@@ -1,9 +1,9 @@
 import { sign } from "jsonwebtoken";
-import { Profile } from "../typings/user";
+import passport from "passport";
 
 const { JWT_SECRET } = process.env;
 
-export const createToken = (profile: Profile) => {
-    const { uid } = profile;
-    return sign(uid, JWT_SECRET);
+export const createToken = async (profile: any) => {
+    const { id } = profile;
+    return sign(id, JWT_SECRET);
 }
