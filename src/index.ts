@@ -36,7 +36,7 @@ import { router as GoogleAuth } from "./services/auth/auth.google.service";
         cb(null, user);
     });
 
-    passport.deserializeUser((user: Express.User, cb) => {
+    passport.deserializeUser((user: passport.Profile, cb) => {
         cb(null, user);
     });
 

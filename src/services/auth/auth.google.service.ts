@@ -2,7 +2,8 @@ import { FieldValue } from "@google-cloud/firestore";
 import express, { Request, Response } from "express";
 import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
-import { create as CreateUser, update as UpdateUser, exists as UserExists } from "../db/users.service";
+import { create as CreateUser, update as UpdateUser } from "../db/users.service";
+import { User as UserData } from "../../middleware/user.middleware";
 
 const {
     GOOGLE_CLIENT_ID,
@@ -21,13 +22,13 @@ passport.use(new Strategy({
 },
 async (accessToken, refreshToken, profile, done) => {
     try {
-        const user = await UserExists(profile);
+        const user = await UserData(profile);
         if (!user) {
             const create = await CreateUser(profile);
         } else {
-            const update = await UpdateUser(user.id, { lastSeen: FieldValue.serverTimestamp() });
+            const update = await UpdateUser(user.uid, { lastSeen: FieldValue.serverTimestamp() });
         }
-        return done(undefined, profile);
+        return done(undefined, user);
     }
     catch (error) {
         return done(error, profile);

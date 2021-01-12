@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { exists as UserExists } from "../services/db/users.service";
 
 export const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
     if(req.isAuthenticated()) {
@@ -10,6 +9,6 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
 }
 
 export const requireAdmin = async (req: Request, res: Response, next: NextFunction) => {
-    // const roles = await getUser(uid);
+    const { user } = req;
     next();
 }
