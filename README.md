@@ -18,6 +18,10 @@ declare namespace NodeJS {
         SERVER_SECRET: string;
     }
 }
+
+export interface Profile extends passport.Profile, Express.User {
+    id: string
+}
 ```
 
 
