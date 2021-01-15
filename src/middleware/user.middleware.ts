@@ -1,10 +1,10 @@
-import passport from "passport";
+import { Profile } from "../typings/user";
 import { exists as UserExists } from "../services/db/users.service";
 
-export const User = async (profile: passport.Profile) => {
+export const User = async (profile: Profile) => {
     const userData = await UserExists(profile);
     if(userData) {
-        const updatedProfile: passport.Profile = {
+        const updatedProfile: Profile = {
             ...profile,
             id: userData.id
         }

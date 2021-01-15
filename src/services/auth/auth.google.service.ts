@@ -4,6 +4,7 @@ import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
 import { create as CreateUser, update as UpdateUser } from "../db/users.service";
 import { User as UserData } from "../../middleware/user.middleware";
+import { Profile } from "../../typings/user";
 
 const {
     GOOGLE_CLIENT_ID,
@@ -20,7 +21,7 @@ passport.use(new Strategy({
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: GOOGLE_CALLBACK_URL
 },
-async (accessToken, refreshToken, profile, done) => {
+async (accessToken, refreshToken, profile: Profile, done) => {
     try {
         const user = await UserData(profile);
         if (!user) {
