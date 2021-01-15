@@ -4,7 +4,6 @@ import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
 import { create as CreateUser, update as UpdateUser } from "../db/users.service";
 import { User as UserData } from "../../middleware/user.middleware";
-import { createToken } from "../../middleware/jwt.middleware";
 
 const {
     GOOGLE_CLIENT_ID,
@@ -38,7 +37,5 @@ async (accessToken, refreshToken, profile, done) => {
 
 router.get("/google", passport.authenticate('google', { scope: [ 'profile', 'email' ] } ));
 router.get("/google/redirect", passport.authenticate('google', { failureRedirect: "/" } ), async (req: Request, res: Response) => {
-    const token = await createToken(req.user);
-    // res.redirect("/success");
-    res.cookie("jwt", token, { httpOnly: true }).redirect("/success");
+    res.redirect("/success");
 });
