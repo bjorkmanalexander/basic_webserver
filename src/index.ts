@@ -4,6 +4,7 @@ import passport from "passport";
 import { router as IndexRouter } from "./routes/index.routes";
 import { router as ProtectedRouter } from "./routes/protected.routes";
 import { router as GoogleAuth } from "./services/auth/auth.google.service";
+import { Profile } from "./typings/user";
 (async () => {
     const {
         SERVER_PORT,
@@ -36,7 +37,7 @@ import { router as GoogleAuth } from "./services/auth/auth.google.service";
         cb(null, user);
     });
 
-    passport.deserializeUser((user: passport.Profile, cb) => {
+    passport.deserializeUser((user: Profile, cb) => {
         cb(null, user);
     });
 

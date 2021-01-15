@@ -26,11 +26,13 @@ export const exists = async (profile: Profile) => {
     });
 }
 
-export const getUser = async (id: string) => {
+export const getUser = async (profile: Profile) => {
+    const { id } = profile;
     return await FetchUser(usersRef, id);
 }
 
-export const remove = async (id: string) => {
+export const remove = async (profile: Profile) => {
+    const { id } = profile;
     return await RemoveUser(usersRef, id);
 }
 
