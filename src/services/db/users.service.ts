@@ -36,6 +36,7 @@ export const remove = async (profile: Profile) => {
     return await RemoveUser(usersRef, id);
 }
 
-export const update = async (id: string, data: object) => {
+export const update = async (profile: Profile, data: object) => {
+    const { id } = profile;
     return await UpdateUser(usersRef, id, data);
 }

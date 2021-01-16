@@ -15,7 +15,7 @@ export const requireAdmin = async (req: Request, res: Response, next: NextFuncti
         const user = req.user as Profile;
         const userData = await (await getUser(user)).data();
         if (userData!.roles.includes('admin')) {
-            next()
+            next();
         } else {
             res.redirect("/");
         }
