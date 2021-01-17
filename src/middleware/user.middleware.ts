@@ -1,13 +1,18 @@
 import { Profile } from "../typings/user";
-import { exists as UserExists } from "../services/db/users.service";
+import { createUser, exists, updateUser } from "../services/db/users.service";
+import { FieldValue } from "@google-cloud/firestore";
 
-export const User = async (profile: Profile) => {
-    const userData = await UserExists(profile);
-    if(userData) {
-        const updatedProfile: Profile = {
-            ...profile,
-            id: userData.id
-        }
-        return updatedProfile
+let user;
+
+export const UserProfile = async (profile: Profile) => {
+    user = await exists(profile);
+    if (!user) {
+        user = await createUser(profile);
+        const userProfile: Profile = { ...profile, id: user.id }
+        return userProfile;
+    } else {
+        const userProfile: Profile = { ...profile, id: user.id }
+        await updateUser(userProfile, { lastSeen: FieldValue.serverTimestamp() });
+        return userProfile;
     }
 }

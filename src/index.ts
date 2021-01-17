@@ -1,10 +1,7 @@
 import express from "express";
 import expressSession from "express-session";
 import passport from "passport";
-import { router as IndexRouter } from "./routes/index.routes";
-import { router as ProtectedRouter } from "./routes/protected.routes";
-import { router as GoogleAuth } from "./services/auth/auth.google.service";
-import { Profile } from "./typings/user";
+import { router } from "./routes/index.routes";
 (async () => {
     const {
         SERVER_PORT,
@@ -29,21 +26,11 @@ import { Profile } from "./typings/user";
 
     server.use(express.json());
     server.use(expressSession(session));
-
     server.use(passport.initialize());
     server.use(passport.session());
-
-    passport.serializeUser((user, cb) => {
-        cb(null, user);
-    });
-
-    passport.deserializeUser((user: Profile, cb) => {
-        cb(null, user);
-    });
-
-    server.use("/auth", GoogleAuth);
-    server.use("/protected", ProtectedRouter);
-    server.use("/", IndexRouter);
+    require("./services/auth/passport.service")(passport);
+    require("./routes/auth/auth.routes")(server, passport);
+    server.use(router);
     server.listen(SERVER_PORT, () => {
         return
     });

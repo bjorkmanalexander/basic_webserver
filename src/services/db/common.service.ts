@@ -1,3 +1,7 @@
+export const create = async (collection: FirebaseFirestore.CollectionReference, data: object) => {
+    return await collection.add(data);
+}
+
 export const fetch = async (collection: FirebaseFirestore.CollectionReference, docRef: string) => {
     return await collection.doc(docRef).get();
 }

@@ -1,27 +1,25 @@
-import express, { Request, Response } from "express";
-export const router = express.Router({
+import { Request, Response, Router } from "express";
+import { router as admin } from "./admin/admin.routes";
+export const router = Router({
     strict: true
 });
 
+router.use("/admin", admin);
 router.get("/", async (req: Request, res: Response) => {
-    if(req.user) {
+    if(!req.user) {
+        res.send(`
+            <div>
+                <a href="/auth/google">Auth with Google</a>
+            </div>
+        `)
+    }
+    else {
         const { user }: any = req;
         res.send(`
-            <div style="display: flex; flex-direction: column;">
+            <div>
                 <p>Hello ${user.displayName}</p>
-                <a href="/protected">Protected Route</a>
+                <a href="/admin">To admin-route</a>
             </div>
-        `);
-    } else {
-        res.send(`
-            <div style="display: flex; flex-direction: column;">
-                <a href="/auth/google">Auth with Google</a>
-                <a href="/protected">Protected Route</a>
-            </div>
-        `);
+        `)
     }
-});
-
-router.get("/success", async (req: Request, res: Response) => {
-    res.redirect("/");
 });
