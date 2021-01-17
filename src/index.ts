@@ -29,7 +29,7 @@ import { router } from "./routes/index.routes";
     server.use(passport.initialize());
     server.use(passport.session());
     require("./services/auth/passport.service")(passport);
-    require("./routes/auth/auth.routes")(server, passport);
+    require("./routes/auth/passport.routes")(server, passport);
     server.use(router);
     server.listen(SERVER_PORT, () => {
         return

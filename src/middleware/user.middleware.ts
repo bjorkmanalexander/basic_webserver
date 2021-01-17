@@ -11,7 +11,7 @@ export const UserProfile = async (profile: Profile) => {
         const userProfile: Profile = { ...profile, id: user.id }
         return userProfile;
     } else {
-        const userProfile: Profile = { ...profile, id: user.id }
+        const userProfile: Profile = { ...profile, id: user.id, roles: user.data.roles }
         await updateUser(userProfile, { lastSeen: FieldValue.serverTimestamp() });
         return userProfile;
     }
